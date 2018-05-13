@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "InternalError";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="~/images/favicon.png">
+    <title>Internal Error - Sova</title>
+    <!-- Bootstrap core CSS -->
+    <link href="~/Content/vendor.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+
+<body class="body-500">
+    <div class="error-head"> </div>
+    <div class="container ">
+        <section class="error-wrapper text-center">
+            <h1>
+                <img src="~/images/500.png" alt="">
+            </h1>
+            <div class="error-desk">
+                <h2>OOOPS!!!</h2>
+                <p class="nrml-txt-alt">Что-то пошло не так.</p>
+                <p>
+                    Почему бы не попробовать заново? Или вы можете <a href="mailto:stas249501@gmail.com" class="sp-link">связаться с нашей тех-поддержкой</a> если проблема повторяется.
+                </p>
+            </div>
+            <a href="@Url.Action("Index","Home")" class="back-btn"><i class="fa fa-home"></i> Вернуться на главную</a>
+        </section>
+    </div>
+
+</body>
+</html>

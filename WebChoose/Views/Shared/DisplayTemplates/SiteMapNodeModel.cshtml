@@ -1,0 +1,25 @@
+﻿@model MvcSiteMapProvider.Web.Html.Models.SiteMapNodeModel
+@using System.Web.Mvc.Html
+@using MvcSiteMapProvider.Web.Html.Models
+
+@if (Model.IsClickable)
+{
+	var isActive = Model.IsCurrentNode || Model.IsInCurrentPath;
+
+	<a class="@(isActive? "active": "")" href="@Model.Url">
+		@if (!string.IsNullOrEmpty(Model.Description))
+		{
+			<i class="fa @Model.Description"></i>
+		}
+		<span>@Model.Title</span>
+	</a>
+}
+else {
+	<a href="javascript:;">
+		@if (!string.IsNullOrEmpty(Model.Description))
+		{
+			<i class="fa @Model.Description"></i>
+		}
+		<span>@Model.Title</span>
+	</a>
+}

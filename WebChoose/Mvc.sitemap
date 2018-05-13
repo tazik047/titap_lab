@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mvcSiteMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0"
+            xsi:schemaLocation="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0 MvcSiteMapSchema.xsd">
+
+	<mvcSiteMapNode title="SiteMap" url="/">
+
+		<mvcSiteMapNode title="Главная" controller="Home" action="Index" description="fa-home"/>
+
+		<mvcSiteMapNode title="Альтернативы" controller="Home" action="Index" description="fa-cloud-download" />
+		
+		<mvcSiteMapNode title="Критерии" controller="Home" action="Index" description="fa-cloud-download" />
+
+		<mvcSiteMapNode title="ЛПР" controller="Home" action="Index" description="fa-users"/>
+
+		<mvcSiteMapNode title="Оценки" controller="Home" action="Index" description="fa-cloud-download" />
+
+		<mvcSiteMapNode title="Векторы" controller="Home" action="Index" description="fa-cloud-download" />
+
+		<mvcSiteMapNode title="Результаты" controller="Home" action="Index" description="fa-cloud-download" />
+
+	</mvcSiteMapNode>
+
+</mvcSiteMap>

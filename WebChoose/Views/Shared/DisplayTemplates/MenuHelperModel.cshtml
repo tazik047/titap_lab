@@ -1,0 +1,25 @@
+﻿@model MvcSiteMapProvider.Web.Html.Models.MenuHelperModel
+@using System.Web.Mvc.Html
+@using MvcSiteMapProvider.Web.Html.Models
+
+
+<ul class="sidebar-menu" id="nav-accordion">
+	@foreach (var node in Model.Nodes.Skip(1))
+	{
+		var hasChilds = node.Children.Any();
+		if (!hasChilds && !node.IsClickable)
+		{
+			continue;
+		}
+
+		<li @(hasChilds ? "class=\"sub-menu\"" : "")>
+			
+			@Html.DisplayFor(m => node)
+
+			@if (hasChilds)
+			{
+				@Html.DisplayFor(m => node.Children)
+			}
+		</li>
+	}
+</ul>
