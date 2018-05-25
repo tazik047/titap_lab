@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "Критерии";
+}
+
+@Html.CreateBootstrapTable("~/criterion/items", new List<ColumnItem>
+{
+	new ColumnItem("Name", "Название"),
+	new ColumnItem("Name", "Тип"),
+	new ColumnItem("Name", "Оптимальность"),
+	new ColumnItem("Name", "Единицы измерения"),
+	new ColumnItem("Name", "Тип шкалы")
+})

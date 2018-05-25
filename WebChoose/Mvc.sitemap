@@ -9,7 +9,7 @@
 
 		<mvcSiteMapNode title="Альтернативы" controller="Home" action="Index" description="fa-cloud-download" />
 		
-		<mvcSiteMapNode title="Критерии" controller="Home" action="Index" description="fa-cloud-download" />
+		<mvcSiteMapNode title="Критерии" controller="Criterion" action="Index" description="fa-cloud-download" />
 
 		<mvcSiteMapNode title="ЛПР" controller="Home" action="Index" description="fa-users"/>
 

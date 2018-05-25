@@ -16,5 +16,10 @@ namespace DAL
 		public DbSet<Result> Results { get; set; }
 
 		public DbSet<Vector> Vectors { get; set; }
+
+		public virtual void SetState<TEntity>(TEntity entity, EntityState state) where TEntity : class
+		{
+			Entry(entity).State = state;
+		}
 	}
 }

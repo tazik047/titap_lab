@@ -1,0 +1,66 @@
+﻿@model DAL.Models.Criterion
+
+@{
+	ViewBag.Title = "Информация о критерии";
+}
+
+<dl class="dl-horizontal">
+	<dt>
+		@Html.DisplayNameFor(model => model.Name)
+	</dt>
+
+	<dd>
+		@Html.DisplayFor(model => model.Name)
+	</dd>
+
+	<dt>
+		@Html.DisplayNameFor(model => model.Range)
+	</dt>
+
+	<dd>
+		@Html.DisplayFor(model => model.Range)
+	</dd>
+
+	<dt>
+		@Html.DisplayNameFor(model => model.Weight)
+	</dt>
+
+	<dd>
+		@Html.DisplayFor(model => model.Weight)
+	</dd>
+
+	<dt>
+		@Html.DisplayNameFor(model => model.Type)
+	</dt>
+
+	<dd>
+		@Html.DisplayFor(model => model.Type)
+	</dd>
+
+	<dt>
+		@Html.DisplayNameFor(model => model.OptimType)
+	</dt>
+
+	<dd>
+		@Html.DisplayFor(model => model.OptimType)
+	</dd>
+
+	<dt>
+		@Html.DisplayNameFor(model => model.Edlzmer)
+	</dt>
+
+	<dd>
+		@Html.DisplayFor(model => model.Edlzmer)
+	</dd>
+
+	<dt>
+		@Html.DisplayNameFor(model => model.ScaleType)
+	</dt>
+
+	<dd>
+		@Html.DisplayFor(model => model.ScaleType)
+	</dd>
+
+</dl>
+
+<button class="btn btn-danger" id="delete-item" type="button" data-deletelink="@Url.Action("Delete", new {id = Model.Id})">Удалить критерий</button>

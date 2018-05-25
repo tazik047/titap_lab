@@ -3,38 +3,32 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DAL.Models
 {
-    public class Criterion
-    {
-        public int Id { get; set; }
+	public class Criterion
+	{
+		public int Id { get; set; }
 
 		[Required]
-        [Display(Name = "Name")]
-        public string Name { get; set; }
+		public string Name { get; set; }
 
 		[Required]
-        [Display(Name = "Range")]
-        public int Range { get; set; }
+		public int Range { get; set; }
 
 		[Required]
-        [Display(Name = "Weight")]
-        public int Weight { get; set; }
+		public int Weight { get; set; }
 
 		[Required]
-        [Display(Name = "Type")]
-        public string Type { get; set; }
+		
+		public CriterionType Type { get; set; }
 
 		[Required]
-        [Display(Name = "OptimType")]
-        public string OptimType { get; set; }
+		public OptimType OptimType { get; set; }
 
 		[Required]
-        [Display(Name = "Edlzmer")]
-        public string Edlzmer { get; set; }
+		public string Edlzmer { get; set; }
 
 		[Required]
-        [Display(Name = "ScaleType")]
-        public string ScaleType { get; set; }
+		public string ScaleType { get; set; }
 
-        public virtual ICollection<Mark> Marks { get; set; }
-    }
+		public virtual ICollection<Mark> Marks { get; set; }
+	}
 }

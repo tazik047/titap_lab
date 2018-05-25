@@ -15,11 +15,9 @@ namespace DAL.Models
 		public int Id { get; set; }
 
 		[Required]
-		[Display(Name = "Alternative")]
 		public int AlternativeId { get; set; }
 
 		[Required]
-		[Display(Name = "Mark")]
 		public int MarkId { get; set; }
 
 		public virtual Mark Mark { get; set; }
