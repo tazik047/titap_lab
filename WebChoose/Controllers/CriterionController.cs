@@ -1,5 +1,6 @@
 ﻿using DAL;
 using DAL.Models;
+using DAL.Repositories.Interfaces;
 
 namespace WebChoose.Controllers
 {

@@ -13,7 +13,7 @@
 
 		<mvcSiteMapNode title="ЛПР" controller="Home" action="Index" description="fa-users"/>
 
-		<mvcSiteMapNode title="Оценки" controller="Home" action="Index" description="fa-cloud-download" />
+		<mvcSiteMapNode title="Оценки" controller="Mark" action="Index" description="fa-cloud-download" />
 
 		<mvcSiteMapNode title="Векторы" controller="Home" action="Index" description="fa-cloud-download" />
 

@@ -2,6 +2,7 @@ using System.Linq;
 using System.Web.Mvc;
 using DAL;
 using DAL.Repositories.Interfaces;
+using WebChoose.Infrastructure;
 
 namespace WebChoose.Controllers
 {
@@ -23,7 +24,7 @@ namespace WebChoose.Controllers
 
 		public ActionResult Items()
 		{
-			return Json(_repository.Get().ToList(), JsonRequestBehavior.AllowGet);
+			return this.ToJson(_repository.Get().ToList());
 		}
 
 		[HttpGet]

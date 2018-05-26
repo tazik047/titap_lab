@@ -54,6 +54,7 @@
     <Compile Include="Models\Alternative.cs" />
     <Compile Include="Models\Criterion.cs" />
     <Compile Include="Models\CriterionType.cs" />
+    <Compile Include="Models\IKeyValueConvertable.cs" />
     <Compile Include="Models\LPR.cs" />
     <Compile Include="Models\Mark.cs" />
     <Compile Include="Models\OptimType.cs" />

@@ -1,0 +1,12 @@
+﻿@{
+	ViewBag.Title = "Оценки";
+}
+
+@Html.CreateBootstrapTable(Url.Action("Items"), new List<ColumnItem>
+{
+	new ColumnItem("Name", "Название"),
+	new ColumnItem("Criterion.Name", "Критерий"),
+	new ColumnItem("Range", "Range"),
+	new ColumnItem("NumMark", "NumMark"),
+	new ColumnItem("NormMark", "NormMark")
+})

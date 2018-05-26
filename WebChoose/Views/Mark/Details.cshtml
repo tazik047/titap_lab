@@ -1,0 +1,50 @@
+﻿@model DAL.Models.Mark
+
+@{
+    ViewBag.Title = "Информация о оценке";
+}
+
+<dl class="dl-horizontal">
+	<dt>
+		@Html.DisplayNameFor(model => model.CriterionId)
+	</dt>
+
+	<dd>
+		@Html.DisplayFor(model => model.Criterion.Name)
+	</dd>
+
+	<dt>
+		@Html.DisplayNameFor(model => model.Name)
+	</dt>
+
+	<dd>
+		@Html.DisplayFor(model => model.Name)
+	</dd>
+
+	<dt>
+		@Html.DisplayNameFor(model => model.Range)
+	</dt>
+
+	<dd>
+		@Html.DisplayFor(model => model.Range)
+	</dd>
+
+	<dt>
+		@Html.DisplayNameFor(model => model.NumMark)
+	</dt>
+
+	<dd>
+		@Html.DisplayFor(model => model.NumMark)
+	</dd>
+
+	<dt>
+		@Html.DisplayNameFor(model => model.NormMark)
+	</dt>
+
+	<dd>
+		@Html.DisplayFor(model => model.NormMark)
+	</dd>
+
+</dl>
+
+<button class="btn btn-danger" id="delete-item" type="button" data-deletelink="@Url.Action("Delete", new {id = Model.Id})">Удалить оценку</button>

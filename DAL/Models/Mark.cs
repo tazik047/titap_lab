@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DAL.Models
 {
-	public class Mark
+	public class Mark : IKeyValueConvertable
 	{
 		public int Id { get; set; }
 
@@ -23,5 +24,9 @@ namespace DAL.Models
 		public int NormMark { get; set; }
 
 		public virtual Criterion Criterion { get; set; }
+		public KeyValuePair<int, string> GetKeyValuePair()
+		{
+			return new KeyValuePair<int, string>(Id, Name);
+		}
 	}
 }

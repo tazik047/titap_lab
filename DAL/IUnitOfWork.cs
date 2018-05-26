@@ -1,8 +1,9 @@
-﻿using DAL.Repositories.Interfaces;
+﻿using System;
+using DAL.Repositories.Interfaces;
 
 namespace DAL
 {
-	public interface IUnitOfWork
+	public interface IUnitOfWork : IDisposable
 	{
 		IAlternativeRepository AlternativeRepository { get; }
 		ICriterionRepository CriterionRepository { get; }
