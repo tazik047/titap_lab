@@ -16,12 +16,12 @@ namespace WebChoose.Controllers
 			UnitOfWork = unitOfWork;
 		}
 
-		public ActionResult Index()
+		public virtual ActionResult Index()
 		{
 			return View();
 		}
 
-		public ActionResult Items()
+		public virtual ActionResult Items()
 		{
 			return this.ToJson(Repository.Get().ToList());
 		}
@@ -50,7 +50,7 @@ namespace WebChoose.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult Manage(T item)
+		public virtual ActionResult Manage(T item)
 		{
 			if (GetEntityId(item) == null)
 			{

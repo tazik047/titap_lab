@@ -1,15 +1,21 @@
-﻿@model System.Collections.Generic.IEnumerable<DAL.Models.Criterion>
+﻿@model List<DAL.Models.Criterion>
 
 <div class="form-horizontal">
 
-	@foreach (var criterion in Model)
+	@for (var i =0; i < Model.Count; i++)
 	{
+		var criterion = Model[i];
+
 		<div class="form-group">
-			@criterion.Name
-			<div class="col-md-10">
-				@Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+			<div class="control-label col-md-2">
+				@criterion.Name
 			</div>
-			@criterion.Edlzmer
+			<div class="col-md-9">
+				@Html.CustomDropDownFor($"Vectors[{i}].MarkId", criterion.Marks, (int)ViewBag.SelectedItems[criterion.Id], "-- Выберите оценку --")
+			</div>
+			<div class="control-label text-left col-md-1">
+				@criterion.Edlzmer
+			</div>
 		</div>
 	}
 

@@ -60,7 +60,11 @@ namespace WebChoose.Infrastructure
 			return CustomDropDownFor(helper, property, typeof(TProperty), p=>(IEnumerable<object>)p.Get(predicate), placeholder);
 		}
 
-		//public static MvcHtmlString CustomDropDownFor(this HtmlHelper helper, )
+		public static MvcHtmlString CustomDropDownFor<TModel>(this HtmlHelper helper, string name, IEnumerable<TModel> items, int selectedItem, string placeholder) 
+			where TModel : IKeyValueConvertable
+		{
+			return helper.DropDownList(name, items.ConvertToSelectListItem(selectedItem), placeholder, new {@class = "form-control"});
+		}
 
 		private static MvcHtmlString CustomDropDownFor<TModel>(HtmlHelper<TModel> helper, Expression<Func<TModel, int>> property, Type propertyType, Func<dynamic, IEnumerable<object>> getItems, string placeholder)
 		{
@@ -72,21 +76,27 @@ namespace WebChoose.Infrastructure
 			{
 				var items = getItems(repositoryProperty.GetValue(unitOfWork))
 					.Cast<IKeyValueConvertable>()
-					.Select(p =>
-					{
-						var item = p.GetKeyValuePair();
-						return new SelectListItem
-						{
-							Text = item.Value,
-							Value = item.Key.ToString(),
-							Selected = (int)metadata.Model == item.Key
-						};
-					})
-					.OrderBy(p => p.Text)
-					.ToList();
+					.ConvertToSelectListItem((int)metadata.Model);
 
 				return helper.DropDownListFor(property, items, placeholder, new { @class = "form-control" });
 			}
+		}
+
+		private static List<SelectListItem> ConvertToSelectListItem<T>(this IEnumerable<T> items, int selectedItem) where T: IKeyValueConvertable
+		{
+			return items
+				.Select(p =>
+				{
+					var item = p.GetKeyValuePair();
+					return new SelectListItem
+					{
+						Text = item.Value,
+						Value = item.Key.ToString(),
+						Selected = selectedItem == item.Key
+					};
+				})
+				.OrderBy(p => p.Text)
+				.ToList();
 		}
 	}
 }

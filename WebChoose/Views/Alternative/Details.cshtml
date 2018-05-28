@@ -12,55 +12,19 @@
 	<dd>
 		@Html.DisplayFor(model => model.Name)
 	</dd>
+	
+	@foreach (var mark in Model.Vectors)
+	{
+		<dt>
+			@Html.DisplayName(mark.Mark.Criterion.Name)
+		</dt>
 
-	<dt>
-		@Html.DisplayNameFor(model => model.Range)
-	</dt>
-
-	<dd>
-		@Html.DisplayFor(model => model.Range)
-	</dd>
-
-	<dt>
-		@Html.DisplayNameFor(model => model.Weight)
-	</dt>
-
-	<dd>
-		@Html.DisplayFor(model => model.Weight)
-	</dd>
-
-	<dt>
-		@Html.DisplayNameFor(model => model.Type)
-	</dt>
-
-	<dd>
-		@Html.DisplayFor(model => model.Type)
-	</dd>
-
-	<dt>
-		@Html.DisplayNameFor(model => model.OptimType)
-	</dt>
-
-	<dd>
-		@Html.DisplayFor(model => model.OptimType)
-	</dd>
-
-	<dt>
-		@Html.DisplayNameFor(model => model.Edlzmer)
-	</dt>
-
-	<dd>
-		@Html.DisplayFor(model => model.Edlzmer)
-	</dd>
-
-	<dt>
-		@Html.DisplayNameFor(model => model.ScaleType)
-	</dt>
-
-	<dd>
-		@Html.DisplayFor(model => model.ScaleType)
-	</dd>
+		<dd>
+			@Html.DisplayFor(model => mark.Mark.Name)
+		</dd>
+	}
 
 </dl>
 
-<button class="btn btn-danger" id="delete-item" type="button" data-deletelink="@Url.Action("Delete", new {id = Model.Id})">Удалить критерий</button>
+<button class="btn btn-danger" id="delete-item" type="button" data-deletelink="@Url.Action("Delete", new {id = Model.Id})">Удалить альтернативу</button>
+<a class="btn btn-success" id="edit-item" href="@Url.Action("Manage", new {id = Model.Id})">Редактировать альтернативу</a>
