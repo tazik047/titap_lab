@@ -24,6 +24,7 @@ namespace DAL.Models
 		public int NormMark { get; set; }
 
 		public virtual Criterion Criterion { get; set; }
+
 		public KeyValuePair<int, string> GetKeyValuePair()
 		{
 			return new KeyValuePair<int, string>(Id, Name);

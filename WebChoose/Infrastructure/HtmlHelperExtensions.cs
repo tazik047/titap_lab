@@ -51,13 +51,26 @@ namespace WebChoose.Infrastructure
 		{
 			var metadata = ModelMetadata.FromLambdaExpression(property, helper.ViewData);
 			var navigationProperty = metadata.ContainerType.GetProperty(metadata.PropertyName.Replace("Id", string.Empty));
-			var repositoryType = typeof(IRepository<>).MakeGenericType(navigationProperty.PropertyType);
+
+			return CustomDropDownFor(helper, property, navigationProperty.PropertyType, p=> (IEnumerable<object>)p.Get(), placeholder);
+		}
+
+		public static MvcHtmlString CustomDropDownFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, int>> property, Expression<Func<TProperty, bool>> predicate, string placeholder)
+		{
+			return CustomDropDownFor(helper, property, typeof(TProperty), p=>(IEnumerable<object>)p.Get(predicate), placeholder);
+		}
+
+		//public static MvcHtmlString CustomDropDownFor(this HtmlHelper helper, )
+
+		private static MvcHtmlString CustomDropDownFor<TModel>(HtmlHelper<TModel> helper, Expression<Func<TModel, int>> property, Type propertyType, Func<dynamic, IEnumerable<object>> getItems, string placeholder)
+		{
+			var metadata = ModelMetadata.FromLambdaExpression(property, helper.ViewData);
+			var repositoryType = typeof(IRepository<>).MakeGenericType(propertyType);
 
 			var repositoryProperty = typeof(IUnitOfWork).GetProperties().First(p => repositoryType.IsAssignableFrom(p.PropertyType));
 			using (var unitOfWork = DependencyResolver.Current.GetService<IUnitOfWork>())
 			{
-				dynamic repository = repositoryProperty.GetValue(unitOfWork);
-				var items = ((IEnumerable<object>) repository.Get())
+				var items = getItems(repositoryProperty.GetValue(unitOfWork))
 					.Cast<IKeyValueConvertable>()
 					.Select(p =>
 					{
@@ -66,11 +79,12 @@ namespace WebChoose.Infrastructure
 						{
 							Text = item.Value,
 							Value = item.Key.ToString(),
-							Selected = (int) metadata.Model == item.Key
+							Selected = (int)metadata.Model == item.Key
 						};
 					})
 					.OrderBy(p => p.Text)
 					.ToList();
+
 				return helper.DropDownListFor(property, items, placeholder, new { @class = "form-control" });
 			}
 		}

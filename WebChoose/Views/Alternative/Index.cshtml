@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "Альтернативы";
+}
+
+@Html.CreateBootstrapTable(Url.Action("Items"), new List<ColumnItem>
+{
+	new ColumnItem("Name", "Название"),
+	new ColumnItem("Type", "Тип"),
+	new ColumnItem("OptimType", "Оптимальность"),
+	new ColumnItem("Edlzmer", "Единицы измерения"),
+	new ColumnItem("ScaleType", "Тип шкалы")
+})

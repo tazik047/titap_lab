@@ -8,13 +8,12 @@ namespace WebChoose.Controllers
 {
 	public abstract class CrudControllerBase<T> : Controller where T: class, new()
 	{
-		private readonly IUnitOfWork _unitOfWork;
-		private readonly IRepository<T> _repository;
+		protected readonly IUnitOfWork UnitOfWork;
+		protected abstract IRepository<T> Repository { get; }
 
-		protected CrudControllerBase(IUnitOfWork unitOfWork, IRepository<T> repository)
+		protected CrudControllerBase(IUnitOfWork unitOfWork)
 		{
-			_unitOfWork = unitOfWork;
-			_repository = repository;
+			UnitOfWork = unitOfWork;
 		}
 
 		public ActionResult Index()
@@ -24,13 +23,13 @@ namespace WebChoose.Controllers
 
 		public ActionResult Items()
 		{
-			return this.ToJson(_repository.Get().ToList());
+			return this.ToJson(Repository.Get().ToList());
 		}
 
 		[HttpGet]
 		public ActionResult Details(int id)
 		{
-			var item = _repository.Find(id);
+			var item = Repository.Find(id);
 			return View(item);
 		}
 
@@ -40,7 +39,7 @@ namespace WebChoose.Controllers
 			T item = null;
 			if (id != null)
 			{
-				item = _repository.Find(id);
+				item = Repository.Find(id);
 			}
 			else
 			{
@@ -55,22 +54,22 @@ namespace WebChoose.Controllers
 		{
 			if (GetEntityId(item) == null)
 			{
-				_repository.Create(item);
+				Repository.Create(item);
 			}
 			else
 			{
-				_repository.Update(item);
+				Repository.Update(item);
 			}
 
-			_unitOfWork.Save();
+			UnitOfWork.Save();
 
 			return RedirectToAction("Details", new { id = GetEntityId(item) });
 		}
 
 		public ActionResult Delete(int id)
 		{
-			_repository.Drop(_repository.Find(id));
-			_unitOfWork.Save();
+			Repository.Drop(Repository.Find(id));
+			UnitOfWork.Save();
 
 			return RedirectToAction("Index");
 		}

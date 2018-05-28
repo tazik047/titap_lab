@@ -144,10 +144,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
+    <Compile Include="Controllers\AlternativeController.cs" />
     <Compile Include="Controllers\CriterionController.cs" />
     <Compile Include="Controllers\CrudControllerBase.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LPRController.cs" />
     <Compile Include="Controllers\MarkController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -182,6 +184,13 @@
     <Content Include="Views\Mark\Index.cshtml" />
     <Content Include="Views\Mark\Manage.cshtml" />
     <Content Include="Views\Mark\Details.cshtml" />
+    <Content Include="Views\LPR\Details.cshtml" />
+    <Content Include="Views\LPR\Index.cshtml" />
+    <Content Include="Views\LPR\Manage.cshtml" />
+    <Content Include="Views\Alternative\Details.cshtml" />
+    <Content Include="Views\Alternative\Index.cshtml" />
+    <Content Include="Views\Alternative\Manage.cshtml" />
+    <Content Include="Views\Criterion\GetAlternativeCriterions.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,13 +1,16 @@
 using DAL;
 using DAL.Models;
+using DAL.Repositories.Interfaces;
 
 namespace WebChoose.Controllers
 {
 	public class MarkController : CrudControllerBase<Mark>
 	{
-		public MarkController(IUnitOfWork unitOfWork) : base(unitOfWork, unitOfWork.MarkRepository)
+		public MarkController(IUnitOfWork unitOfWork) : base(unitOfWork)
 		{
 		}
+
+		protected override IRepository<Mark> Repository => UnitOfWork.MarkRepository;
 
 		protected override object GetEntityId(Mark entity)
 		{

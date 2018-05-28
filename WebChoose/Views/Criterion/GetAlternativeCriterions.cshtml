@@ -1,0 +1,16 @@
+﻿@model System.Collections.Generic.IEnumerable<DAL.Models.Criterion>
+
+<div class="form-horizontal">
+
+	@foreach (var criterion in Model)
+	{
+		<div class="form-group">
+			@criterion.Name
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+			</div>
+			@criterion.Edlzmer
+		</div>
+	}
+
+</div>

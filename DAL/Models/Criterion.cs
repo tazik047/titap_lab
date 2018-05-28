@@ -17,7 +17,6 @@ namespace DAL.Models
 		public int Weight { get; set; }
 
 		[Required]
-		
 		public CriterionType Type { get; set; }
 
 		[Required]
@@ -30,6 +29,7 @@ namespace DAL.Models
 		public string ScaleType { get; set; }
 
 		public virtual ICollection<Mark> Marks { get; set; }
+
 		public KeyValuePair<int, string> GetKeyValuePair()
 		{
 			return new KeyValuePair<int, string>(Id, Name);
