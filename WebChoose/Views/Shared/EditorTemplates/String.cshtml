@@ -2,7 +2,16 @@
 @if (Model is Enum)
 {
 	<div class="editor-field">
-		@Html.EnumDropDownListFor(m => m, new { @class = "form-control" })
+		@*@Html.EnumDropDownListFor(m => m, new { @class = "form-control" })*@
+		@Html.DropDownListFor(m=>m, Enum
+			.GetValues(Model.GetType())
+			.Cast<object>()
+			.Select(p=>new SelectListItem
+			{
+				Text = p.ToString().Translate(),
+				Value = ((int)p).ToString(),
+				Selected = (int)Model == (int)p
+			}), new { @class = "form-control" })
 		@Html.ValidationMessageFor(m => m)
 	</div>
 }

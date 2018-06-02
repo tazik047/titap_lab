@@ -2,11 +2,11 @@
     ViewBag.Title = "Критерии";
 }
 
-@Html.CreateBootstrapTable(Url.Action("Items"), new List<ColumnItem>
+@Html.CreateBootstrapTable(Url.Action("Items"), new List<string>
 {
-	new ColumnItem("Name", "Название"),
-	new ColumnItem("Type", "Тип"),
-	new ColumnItem("OptimType", "Оптимальность"),
-	new ColumnItem("Edlzmer", "Единицы измерения"),
-	new ColumnItem("ScaleType", "Тип шкалы")
+	"Name",
+	"Type",
+	"OptimType",
+	"Edlzmer",
+	"ScaleType"
 })

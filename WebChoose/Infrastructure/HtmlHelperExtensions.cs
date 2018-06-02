@@ -17,6 +17,12 @@ namespace WebChoose.Infrastructure
 	{
 		private static string _tableTemplate;
 
+		public static MvcHtmlString CreateBootstrapTable(this HtmlHelper helper, string jsonUrl, List<string> columns,
+			string attributeFunction = "", string tableId = "")
+		{
+			return CreateBootstrapTable(helper, jsonUrl, columns.Select(p=> new ColumnItem(p, p.Translate())).ToList(), attributeFunction, tableId);
+		}
+
 		public static MvcHtmlString CreateBootstrapTable(this HtmlHelper helper, string jsonUrl, List<ColumnItem> columns, string attributeFunction = "", string tableId = "")
 		{
 			if (string.IsNullOrEmpty(_tableTemplate))
@@ -55,6 +61,16 @@ namespace WebChoose.Infrastructure
 			return CustomDropDownFor(helper, property, navigationProperty.PropertyType, p=> (IEnumerable<object>)p.Get(), placeholder);
 		}
 
+		public static MvcHtmlString CustomDisplayNameFor<TModel, TValue>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TValue>> property)
+		{
+			return CustomisplayName(helper.DisplayNameFor(property).ToString());
+		}
+
+		public static MvcHtmlString CustomDisplayNameFor(this HtmlHelper helper, string value)
+		{
+			return CustomisplayName(helper.DisplayName(value).ToString());
+		}
+
 		public static MvcHtmlString CustomDropDownFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, int>> property, Expression<Func<TProperty, bool>> predicate, string placeholder)
 		{
 			return CustomDropDownFor(helper, property, typeof(TProperty), p=>(IEnumerable<object>)p.Get(predicate), placeholder);
@@ -65,6 +81,12 @@ namespace WebChoose.Infrastructure
 		{
 			return helper.DropDownList(name, items.ConvertToSelectListItem(selectedItem), placeholder, new {@class = "form-control"});
 		}
+
+		private static MvcHtmlString CustomisplayName(string value)
+		{
+			var text = value.Translate();
+			return new MvcHtmlString($"<dt title=\"{text}\">{text}</dt>");
+        }
 
 		private static MvcHtmlString CustomDropDownFor<TModel>(HtmlHelper<TModel> helper, Expression<Func<TModel, int>> property, Type propertyType, Func<dynamic, IEnumerable<object>> getItems, string placeholder)
 		{

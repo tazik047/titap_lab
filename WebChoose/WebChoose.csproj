@@ -157,6 +157,7 @@
     <Compile Include="Infrastructure\ColumnItem.cs" />
     <Compile Include="Infrastructure\ControllerHelper.cs" />
     <Compile Include="Infrastructure\HtmlHelperExtensions.cs" />
+    <Compile Include="Infrastructure\TranslationHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -191,6 +192,7 @@
     <Content Include="Views\Alternative\Index.cshtml" />
     <Content Include="Views\Alternative\Manage.cshtml" />
     <Content Include="Views\Criterion\GetAlternativeCriterions.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\String.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,0 +1,12 @@
+﻿@model object
+	
+<dd>
+	@if (Model is Enum)
+	{
+		@Model.ToString().Translate()
+	}
+	else
+	{
+		@(Model?.ToString() ?? string.Empty)
+	}
+</dd>

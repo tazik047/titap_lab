@@ -22,7 +22,7 @@ namespace WebChoose.Controllers
 				.Select(p => new ColumnItem(p.Id.ToString(), p.Name))
 				.ToList();
 
-			ViewBag.Columns = new[] {new ColumnItem("Name", "Название")}
+			ViewBag.Columns = new[] {new ColumnItem("Name", "Name".Translate())}
 				.Union(criterions)
 				.ToList();
 

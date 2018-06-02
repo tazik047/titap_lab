@@ -5,23 +5,15 @@
 }
 
 <dl class="dl-horizontal">
-	<dt>
-		@Html.DisplayNameFor(model => model.Name)
-	</dt>
+	@Html.CustomDisplayNameFor(model => model.Name)
 
-	<dd>
-		@Html.DisplayFor(model => model.Name)
-	</dd>
+	@Html.DisplayFor(model => model.Name)
 	
 	@foreach (var mark in Model.Vectors)
 	{
-		<dt>
-			@Html.DisplayName(mark.Mark.Criterion.Name)
-		</dt>
+		@Html.CustomDisplayNameFor(mark.Mark.Criterion.Name)
 
-		<dd>
-			@Html.DisplayFor(model => mark.Mark.Name)
-		</dd>
+		@Html.DisplayFor(model => mark.Mark.Name)
 	}
 
 </dl>

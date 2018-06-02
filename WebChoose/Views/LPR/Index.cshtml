@@ -2,8 +2,8 @@
     ViewBag.Title = "ЛПР";
 }
 
-@Html.CreateBootstrapTable(Url.Action("Items"), new List<ColumnItem>
+@Html.CreateBootstrapTable(Url.Action("Items"), new List<string>
 {
-	new ColumnItem("Name", "Название"),
-	new ColumnItem("Range", "Range"),
+	"Name",
+	"Range"
 })
