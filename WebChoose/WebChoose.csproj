@@ -161,6 +161,8 @@
     <Compile Include="Infrastructure\ControllerHelper.cs" />
     <Compile Include="Infrastructure\HtmlHelperExtensions.cs" />
     <Compile Include="Infrastructure\TranslationHelper.cs" />
+    <Compile Include="Models\AlternativeChooseResult.cs" />
+    <Compile Include="Models\ChooseResultViewModel.cs" />
     <Compile Include="Models\MarkNormalizationViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -201,6 +203,7 @@
     <Content Include="Views\Result\Step2.cshtml" />
     <Content Include="Views\Result\Step3.cshtml" />
     <Content Include="Views\Result\Step4.cshtml" />
+    <Content Include="Views\Result\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

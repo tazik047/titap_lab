@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "Результаты ПР";
+}
+
+@Html.CreateBootstrapTable(Url.Action("Items"), new List<string>
+{
+	"Name",
+	"Choose"
+})
+
+@section scripts
+{
+	<script>
+		window.createRecordUrl = '/Step1';
+	</script>
+}

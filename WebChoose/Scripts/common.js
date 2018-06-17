@@ -1,13 +1,15 @@
 ﻿(function($) {
 	$(document).on('click', '.data-table .add-row', function() {
-		window.location += '/Manage';
+		window.location += window.createRecordUrl ? window.createRecordUrl : '/Manage';
 	});
 })(jQuery);
 (function ($) {
 	$('#bootstrap-table').on('click-row.bs.table', selectItem);
 
 	function selectItem(row, $element, field) {
-		window.location += '/Details/' + $element.Id;
+		if ($element.id) {
+			window.location += '/Details/' + $element.Id;
+		}
 	}
 })(jQuery);
 (function ($) {

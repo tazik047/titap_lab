@@ -1,7 +1,67 @@
-﻿
+﻿@model WebChoose.Models.ChooseResultViewModel
 @{
-    ViewBag.Title = "ПР- Результат";
+	ViewBag.Title = "ПР- Результат";
+	var criterions = Model
+		.Alternatives
+		.First()
+		.Vectors
+		.Select(p => p.Mark.Criterion)
+		.Where(p => Model.NormKoeficients.ContainsKey(p.Id))
+		.OrderBy(p => p.Name)
+		.ToArray();
 }
 
-<h2>Step4</h2>
+<section class="panel">
+	<div class="panel-body">
+		<h2>Оценки альтернатив</h2>
+		<table class="table table-bordered">
+			<tr>
+				<th>Альтернатива</th>
+				@foreach (var criterion in criterions)
+				{
+					<th>@criterion.Name</th>
+				}
+			</tr>
+			@foreach (var alternative in Model.Alternatives)
+			{
+				var marks = alternative
+					.Vectors
+					.Select(p => p.Mark)
+					.Where(p => Model.NormKoeficients.ContainsKey(p.CriterionId))
+					.OrderBy(p => p.Criterion.Name)
+					.ToArray();
 
+				<tr>
+					<td>@alternative.Name</td>
+					@foreach (var mark in marks)
+					{
+						<td>@mark.NormMark.ToString("F") (@mark.NumMark)</td>
+					}
+				</tr>
+			}
+			<tr>
+				<td><i>Нормирующие множители</i></td>
+				@for (var i = 0; i < criterions.Length; i++)
+				{
+					<td>@Model.NormKoeficients[criterions[i].Id].ToString("F")</td>
+				}
+			</tr>
+		</table>
+		<h2>Результат выбора для @Model.LprName</h2>
+		<table class="table table-bordered">
+			<tr>
+				<th>№</th>
+				<th>Альтернатива</th>
+				<th>Результат</th>
+			</tr>
+			@for (var i = 0; i < Model.Results.Length; i++)
+			{
+				<tr>
+					<td>@(i+1)</td>
+					<td>@Model.Results[i].Item1</td>
+					<td>@Model.Results[i].Item2.ToString("F")</td>
+				</tr>
+			}
+		</table>
+	</div>
+</section>

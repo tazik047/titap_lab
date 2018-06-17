@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using DAL;
 using DAL.Models;
+using WebChoose.Infrastructure;
 using WebChoose.Models;
 
 namespace WebChoose.Controllers
@@ -16,6 +18,27 @@ namespace WebChoose.Controllers
 		public ResultController(UnitOfWork unitOfWork)
 		{
 			_unitOfWork = unitOfWork;
+		}
+
+		public ActionResult Index()
+		{
+			return View();
+		}
+
+		public ActionResult Items()
+		{
+			var results = _unitOfWork
+				.ResultRepository
+				.Get()
+				.GroupBy(p => p.LPRId)
+				.Select(p => new
+				{
+					p.First().LPR.Name,
+					Choose = GetResultHtmlList(p)
+				})
+				.ToArray();
+
+			return this.ToJson(results);
 		}
 
 		[HttpGet]
@@ -127,6 +150,7 @@ namespace WebChoose.Controllers
 
 		public ActionResult Step4(int lprId, string criterions)
 		{
+			var resultModel = new ChooseResultViewModel();
 			var ids = ParseCriterionIds(criterions);
 			var lpr = _unitOfWork.LprRepository.Find(lprId);
 			var alternatives = _unitOfWork
@@ -134,39 +158,73 @@ namespace WebChoose.Controllers
 				.Get()
 				.ToList();
 
-			/*_unitOfWork
-				.CriterionRepository
-				.Get(p=>ids.Contains(p.Id))
-				.ToList()
-				.Select(p=>1 / p.Marks.)*/
-
-			var result = new Dictionary<int, double[]>();
+			var alternativeMarks = new Dictionary<int, AlternativeChooseResult>();
 
 			foreach (var alternative in alternatives)
 			{
-				result[alternative.Id] = alternative
-					.Vectors
-					.Where(p => ids.Contains(p.Mark.CriterionId))
-					.OrderBy(p => p.Id)
-					.Select(p => p.Mark.NormMark)
-					.ToArray();
+				alternativeMarks[alternative.Id] = new AlternativeChooseResult
+				{
+					AlternativeName = alternative.Name,
+					Marks = alternative
+						.Vectors
+						.Where(p => ids.Contains(p.Mark.CriterionId))
+						.OrderBy(p => p.Mark.CriterionId)
+						.Select(p => new Tuple<int, double>(p.Mark.CriterionId, p.Mark.NormMark))
+						.ToArray()
+				};
 			}
 
+			var tmp = alternativeMarks.Values.First();
 			var normKoef = Enumerable
-				.Range(0, result.Values.First().Length)
-				.Select(p => 1 / result.Keys.Select(k => result[k][p]).Sum())
+				.Range(0, tmp.Marks.Length)
+				.Select(p =>
+				{
+					var sum = alternativeMarks.Keys.Select(k => alternativeMarks[k].Marks[p].Item2).Sum();
+					return new
+					{
+						Koef = Math.Abs(sum) < 1e-8 ? 0 : (1 / sum),
+						CriterionId = tmp.Marks[p].Item1
+					};
+				})
 				.ToArray();
 
-			foreach (var a in result)
+			foreach (var alternative in alternativeMarks)
 			{
-				var r = 0.0;
+				alternative.Value.Result = 0.0;
 				for (int i = 0; i < normKoef.Length; i++)
 				{
-					r += normKoef[i] * a.Value[i];
+					alternative.Value.Result += normKoef[i].Koef * alternative.Value.Marks[i].Item2;
 				}
 			}
 
-			return View();
+			resultModel.LprName = lpr.Name;
+			resultModel.Alternatives = alternatives.ToArray();
+			resultModel.NormKoeficients = normKoef.ToDictionary(p => p.CriterionId, p => p.Koef);
+			resultModel.Results = alternativeMarks
+				.Values
+				.OrderByDescending(p => p.Result)
+				.Select(p => new Tuple<string, double>(p.AlternativeName, p.Result))
+				.ToArray();
+
+			_unitOfWork
+				.ResultRepository
+				.Get(p => p.LPRId == lprId)
+				.ToList()
+				.ForEach(_unitOfWork.ResultRepository.Drop);
+
+			alternativeMarks
+				.OrderByDescending(p => p.Value.Result)
+				.Select((p, i) => new Result
+				{
+					LPRId = lprId,
+					AlternativeId = p.Key,
+					Range = i
+				}).ToList()
+				.ForEach(_unitOfWork.ResultRepository.Create);
+
+			_unitOfWork.Save();
+
+			return View(resultModel);
 		}
 
 		private int[] ParseCriterionIds(string criterions)
@@ -189,6 +247,18 @@ namespace WebChoose.Controllers
 				.Get(p => criterionIds.Contains(p.CriterionId))
 				.GroupBy(p => p.Criterion.Name)
 				.ToDictionary(p => p.Key, p => p.OrderBy(t => t.Name).ToArray());
+		}
+
+		private string GetResultHtmlList(IEnumerable<Result> results)
+		{
+			var builder = new StringBuilder("<ol>");
+			foreach (var result in results)
+			{
+				builder.AppendFormat("<li>{0}</li>", result.Alternative.Name);
+			}
+
+			builder.Append("</ol>");
+			return builder.ToString();
 		}
 	}
 }
