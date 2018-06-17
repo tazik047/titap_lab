@@ -21,7 +21,8 @@ namespace DAL.Models
 		public int NumMark { get; set; }
 
 		[Required]
-		public int NormMark { get; set; }
+		[Range(0.0, 1.0)]
+		public double NormMark { get; set; }
 
 		public virtual Criterion Criterion { get; set; }
 

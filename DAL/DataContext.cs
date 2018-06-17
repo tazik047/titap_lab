@@ -31,9 +31,9 @@ namespace DAL
 
 		class CustomDbInitializer : DropCreateDatabaseIfModelChanges<DataContext>
 		{
-			public override void InitializeDatabase(DataContext context)
+			protected override void Seed(DataContext context)
 			{
-				base.InitializeDatabase(context);
+				base.Seed(context);
 
 				var lprs = new[]
 				{

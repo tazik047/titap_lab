@@ -1,0 +1,45 @@
+﻿@model Dictionary<string, WebChoose.Models.MarkNormalizationViewModel>
+@{
+	ViewBag.Title = "ПР - Шаг3";
+}
+
+<section class="panel">
+	<div class="panel-body">
+		<table class="table table-bordered">
+			<tr>
+				<th>Критерий</th>
+				<th>Название</th>
+				<th>Оценка</th>
+				<th>Норм. Оценка</th>
+
+			</tr>
+			@foreach (var criterion in Model)
+			{
+				for (int i = 0; i < criterion.Value.Marks.Length; i++)
+				{
+					<tr>
+						@if (i == 0)
+						{
+							<td rowspan="@criterion.Value.Marks.Length">
+								@criterion.Key
+								<br/>
+								@criterion.Value.Type.ToString().Translate()
+								<br/>
+								Эталон: @criterion.Value.Etalon
+							</td>
+						}
+						<td>@criterion.Value.Marks[i].Name</td>
+						<td>@criterion.Value.Marks[i].NumMark</td>
+						<td>@criterion.Value.Marks[i].NormMark.ToString("F")</td>
+					</tr>
+				}
+			}
+		</table>
+
+		<div class="form-group">
+			<div class="col-md-offset-2 col-md-10">
+				<a href="@Url.Action("Step4", "Result", new {lprId = Request["lprId"], criterions = Request["criterions"]})" class="btn btn-default">Дальше</a>
+			</div>
+		</div>
+	</div>
+</section>
