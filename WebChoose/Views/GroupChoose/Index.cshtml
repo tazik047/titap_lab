@@ -1,4 +1,5 @@
-﻿@model Dictionary<int, Dictionary<int, int>>
+﻿@using WebChoose.Models
+@model Dictionary<int, Dictionary<int, int>>
 @{
 	ViewBag.Title = "Коллективный выбор";
 }
@@ -17,19 +18,83 @@
 			@foreach (var alternative in Model)
 			{
 				<tr>
-					<td>@ViewBag.Alternatives[alternative.Key]</td>
+					<th>@ViewBag.Alternatives[alternative.Key]</th>
 					@foreach (var mark in ViewBag.Alternatives)
 					{
 						if (mark.Key == alternative.Key)
 						{
-							<td>-</td>
+							<td class="text-center">-</td>
 							continue;
 						}
 
-						<td>@alternative.Value[mark.Key]</td>
+						var cellClass = alternative.Value[mark.Key] > Model[mark.Key][alternative.Key]
+							? "bg-success"
+							: "bg-warning";
+
+						<td class="text-center @cellClass">@alternative.Value[mark.Key]</td>
 					}
 				</tr>
 			}
 		</table>
+
+		<h2>Парные дуэли</h2>
+		<table class="table table-bordered">
+			<tr>
+				<th>Альтернатива</th>
+				<th>Побед</th>
+				<th>Проигрышей</th>
+			</tr>
+			@foreach (PairCompair compair in ViewBag.CompairResult)
+			{
+				<tr>
+					<td>@ViewBag.Alternatives[compair.AlternativeId]</td>
+					<td>@compair.WinCount</td>
+					<td>@compair.LoseCount</td>
+				</tr>
+			}
+		</table>
+
+		<h2>Правило Кондерсє</h2>
+		@{
+			var winner = ((List<PairCompair>)ViewBag.CompairResult)
+				.SingleOrDefault(p => p.LoseCount == 0);
+			var message = winner == null
+				? "Победитель не может быть выбран так как нет такой альтернативы, которая выиграла во всех парных дуэлях."
+				: $"Победитель '{ViewBag.Alternatives[winner.AlternativeId]}', который выиграл во всех парных дуэлях";
+		}
+
+		<div class="alert alert-info clearfix">
+			<span class="alert-icon"><i class="fa fa-info"></i></span>
+			<div class="notification-info">
+				<ul class="clearfix notification-meta">
+					<li class="pull-left notification-sender"><span>@message</span></li>
+					<li class="pull-right notification-time">1 min ago</li>
+				</ul>
+				<p>&nbsp;</p>
+			</div>
+		</div>
+
+		<h2>Правило Копленда</h2>
+		@{
+			var secondWinner = ((List<PairCompair>)ViewBag.CompairResult)
+				.Select(p => new
+				{
+					p.AlternativeId,
+					Score = p.WinCount - p.LoseCount
+				})
+				.OrderByDescending(p => p.Score)
+				.First();
+		}
+
+		<div class="alert alert-info clearfix">
+			<span class="alert-icon"><i class="fa fa-info"></i></span>
+			<div class="notification-info">
+				<ul class="clearfix notification-meta">
+					<li class="pull-left notification-sender"><span>Победитель по Копленду с наивысшей из оценок – '@ViewBag.Alternatives[secondWinner.AlternativeId]'</span></li>
+					<li class="pull-right notification-time">1 min ago</li>
+				</ul>
+				<p>&nbsp;</p>
+			</div>
+		</div>
 	</div>
 </section>

@@ -251,7 +251,7 @@ namespace WebChoose.Controllers
 		private string GetResultHtmlList(IEnumerable<Result> results)
 		{
 			var builder = new StringBuilder("<ol>");
-			foreach (var result in results)
+			foreach (var result in results.OrderBy(p => p.Range))
 			{
 				builder.AppendFormat("<li>{0}</li>", result.Alternative.Name);
 			}

@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using DAL;
 using DAL.Models;
+using WebChoose.Models;
 
 namespace WebChoose.Controllers
 {
@@ -24,8 +23,25 @@ namespace WebChoose.Controllers
 			var result = CalculateCompareTable(alternatives);
 
 			ViewBag.Alternatives = alternatives.ToDictionary(p => p.Id, p => p.Name);
+			ViewBag.CompairResult = GetCompairResult(result);
 
 			return View(result);
+		}
+
+		private List<PairCompair> GetCompairResult(Dictionary<int, Dictionary<int, int>> voteTable)
+		{
+			return voteTable
+				.Select(p =>
+				{
+					var winCount = p.Value.Count(r => r.Value > voteTable[r.Key][p.Key]);
+					return new PairCompair
+					{
+						AlternativeId = p.Key,
+						WinCount = winCount,
+						LoseCount = p.Value.Count - winCount -1
+					};
+				})
+				.ToList();
 		}
 
 		private Dictionary<int, Dictionary<int, int>> CalculateCompareTable(IEnumerable<Alternative> alternatives)

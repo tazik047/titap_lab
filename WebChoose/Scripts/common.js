@@ -7,7 +7,7 @@
 	$('#bootstrap-table').on('click-row.bs.table', selectItem);
 
 	function selectItem(row, $element, field) {
-		if ($element.id) {
+		if ($element.Id) {
 			window.location += '/Details/' + $element.Id;
 		}
 	}

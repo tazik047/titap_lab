@@ -11,11 +11,13 @@
 		
 		<mvcSiteMapNode title="Критерии" controller="Criterion" action="Index" description="fa-list" />
 
-		<mvcSiteMapNode title="ЛПР" controller="LPR" action="Index" description="fa-users"/>
+		<mvcSiteMapNode title="ЛПР" controller="LPR" action="Index" description="fa-user"/>
 
 		<mvcSiteMapNode title="Оценки" controller="Mark" action="Index" description="fa-map-signs" />
 
 		<mvcSiteMapNode title="Результаты" controller="Result" action="Index" description="fa-cloud-download" />
+
+		<mvcSiteMapNode title="Коллективный выбор" controller="GroupChoose" action="Index" description="fa-users" />
 
 	</mvcSiteMapNode>
 

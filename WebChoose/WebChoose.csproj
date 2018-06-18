@@ -165,6 +165,7 @@
     <Compile Include="Models\AlternativeChooseResult.cs" />
     <Compile Include="Models\ChooseResultViewModel.cs" />
     <Compile Include="Models\MarkNormalizationViewModel.cs" />
+    <Compile Include="Models\PairCompair.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

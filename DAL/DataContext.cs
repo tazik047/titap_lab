@@ -54,11 +54,11 @@ namespace DAL
 						Type = CriterionType.Quantitative,
 						Marks = new List<Mark>
 						{
-							new Mark {Name = "9-12.5"},
-							new Mark {Name = "13"},
-							new Mark {Name = "14"},
-							new Mark {Name = "15-15.6"},
-							new Mark {Name = "16-17"},
+							new Mark {Name = "9-12.5", NumMark = 11},
+							new Mark {Name = "13", NumMark = 13},
+							new Mark {Name = "14", NumMark = 14},
+							new Mark {Name = "15-15.6", NumMark = 15},
+							new Mark {Name = "16-17", NumMark = 16},
 						}
 					},
 					new Criterion
@@ -70,9 +70,9 @@ namespace DAL
 						Type = CriterionType.Quantitative,
 						Marks = new List<Mark>
 						{
-							new Mark {Name = "<10000"},
-							new Mark {Name = "10000-20000"},
-							new Mark {Name = ">20000"},
+							new Mark {Name = "<10000", NumMark = 10000},
+							new Mark {Name = "10000-20000", NumMark = 15000},
+							new Mark {Name = ">20000", NumMark = 20000},
 						}
 					},
 					new Criterion
@@ -84,12 +84,12 @@ namespace DAL
 						Type = CriterionType.Quantitative,
 						Marks = new List<Mark>
 						{
-							new Mark {Name = "<=2"},
-							new Mark {Name = "4"},
-							new Mark {Name = "6-8"},
-							new Mark {Name = "10-12"},
-							new Mark {Name = "16-24"},
-							new Mark {Name = ">=32"},
+							new Mark {Name = "<=2", NumMark = 2},
+							new Mark {Name = "4", NumMark = 4},
+							new Mark {Name = "6-8", NumMark = 7},
+							new Mark {Name = "10-12", NumMark = 11},
+							new Mark {Name = "16-24", NumMark = 20},
+							new Mark {Name = ">=32", NumMark = 32},
 						}
 					},
 					new Criterion
@@ -101,10 +101,10 @@ namespace DAL
 						Type = CriterionType.Quantitative,
 						Marks = new List<Mark>
 						{
-							new Mark {Name = "2"},
-							new Mark {Name = "4"},
-							new Mark {Name = "6"},
-							new Mark {Name = "8"},
+							new Mark {Name = "2", NumMark = 2},
+							new Mark {Name = "4", NumMark = 4},
+							new Mark {Name = "6", NumMark = 6},
+							new Mark {Name = "8", NumMark = 8},
 						}
 					},
 					new Criterion
@@ -116,11 +116,11 @@ namespace DAL
 						Type = CriterionType.Quantitative,
 						Marks = new List<Mark>
 						{
-							new Mark {Name = "0"},
-							new Mark {Name = "128"},
-							new Mark {Name = "256"},
-							new Mark {Name = "512"},
-							new Mark {Name = "1024"},
+							new Mark {Name = "0", NumMark = 0},
+							new Mark {Name = "128", NumMark = 128},
+							new Mark {Name = "256", NumMark = 256},
+							new Mark {Name = "512", NumMark = 512},
+							new Mark {Name = "1024", NumMark = 1024},
 						}
 					}
 				};
@@ -189,6 +189,27 @@ namespace DAL
 					}
 				};
 
+				var results = new[]
+				{
+					new Result {LPR = lprs[0], Range = 4, Alternative = alternative[0]},
+					new Result {LPR = lprs[0], Range = 3, Alternative = alternative[1]},
+					new Result {LPR = lprs[0], Range = 2, Alternative = alternative[2]},
+					new Result {LPR = lprs[0], Range = 1, Alternative = alternative[3]},
+					new Result {LPR = lprs[0], Range = 5, Alternative = alternative[4]},
+
+					new Result {LPR = lprs[2], Range = 4, Alternative = alternative[0]},
+					new Result {LPR = lprs[2], Range = 3, Alternative = alternative[1]},
+					new Result {LPR = lprs[2], Range = 2, Alternative = alternative[2]},
+					new Result {LPR = lprs[2], Range = 1, Alternative = alternative[3]},
+					new Result {LPR = lprs[2], Range = 5, Alternative = alternative[4]},
+
+					new Result {LPR = lprs[3], Range = 1, Alternative = alternative[0]},
+					new Result {LPR = lprs[3], Range = 3, Alternative = alternative[1]},
+					new Result {LPR = lprs[3], Range = 5, Alternative = alternative[2]},
+					new Result {LPR = lprs[3], Range = 2, Alternative = alternative[3]},
+					new Result {LPR = lprs[3], Range = 4, Alternative = alternative[4]}
+				};
+
 				context.LPRs.AddRange(lprs);
 				context.SaveChanges();
 
@@ -196,6 +217,9 @@ namespace DAL
 				context.SaveChanges();
 
 				context.Alternatives.AddRange(alternative);
+				context.SaveChanges();
+
+				context.Results.AddRange(results);
 				context.SaveChanges();
 			}
 		}
