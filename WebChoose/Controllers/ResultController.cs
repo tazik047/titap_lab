@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Web;
 using System.Web.Mvc;
 using DAL;
 using DAL.Models;
@@ -13,9 +12,9 @@ namespace WebChoose.Controllers
 {
 	public class ResultController : Controller
 	{
-		private readonly UnitOfWork _unitOfWork;
+		private readonly IUnitOfWork _unitOfWork;
 
-		public ResultController(UnitOfWork unitOfWork)
+		public ResultController(IUnitOfWork unitOfWork)
 		{
 			_unitOfWork = unitOfWork;
 		}

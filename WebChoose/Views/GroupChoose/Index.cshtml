@@ -1,0 +1,35 @@
+﻿@model Dictionary<int, Dictionary<int, int>>
+@{
+	ViewBag.Title = "Коллективный выбор";
+}
+
+<section class="panel">
+	<div class="panel-body">
+		<h2>Оценки альтернатив</h2>
+		<table class="table table-bordered">
+			<tr>
+				<th>Альтернатива</th>
+				@foreach (var alternative in ViewBag.Alternatives)
+				{
+					<th>@alternative.Value</th>
+				}
+			</tr>
+			@foreach (var alternative in Model)
+			{
+				<tr>
+					<td>@ViewBag.Alternatives[alternative.Key]</td>
+					@foreach (var mark in ViewBag.Alternatives)
+					{
+						if (mark.Key == alternative.Key)
+						{
+							<td>-</td>
+							continue;
+						}
+
+						<td>@alternative.Value[mark.Key]</td>
+					}
+				</tr>
+			}
+		</table>
+	</div>
+</section>

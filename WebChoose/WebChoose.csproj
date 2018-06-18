@@ -150,6 +150,7 @@
     <Compile Include="Controllers\CriterionController.cs" />
     <Compile Include="Controllers\CrudControllerBase.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\GroupChooseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LPRController.cs" />
     <Compile Include="Controllers\MarkController.cs" />
@@ -204,6 +205,7 @@
     <Content Include="Views\Result\Step3.cshtml" />
     <Content Include="Views\Result\Step4.cshtml" />
     <Content Include="Views\Result\Index.cshtml" />
+    <Content Include="Views\GroupChoose\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
